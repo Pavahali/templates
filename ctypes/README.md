@@ -35,4 +35,4 @@
 |queue_front()|O(1)|void*|queue_t `Q`|Access the first element|
 |queue_back()|O(1)|void*|queue_t `Q`|Access the last element|
 |queue_push()|O(1)||queue_t* `Q`<br>void* `item`<br>size_t `N`|Inserts an `item` (its first `N` bytes) at the end|
-|queue_pop()|O(1)|void*|queue_t* `Q`|Removes the last element|
+|queue_pop()|O(1)||queue_t* `Q`|Removes the last element|
