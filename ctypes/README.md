@@ -48,7 +48,7 @@
 ---
 ---
 
-## Helper files
+## Helpers
 ## comparator.h
 
 > Provides comparable items and some comparators.
