@@ -15,6 +15,10 @@ int queue_empty(queue_t Q) {
     return !(Q.head);
 }
 
+size_t queue_size(queue_t Q) {
+    return Q.size;
+}
+
 
 void *queue_front(queue_t Q) {
     if (queue_empty(Q)) return 0;

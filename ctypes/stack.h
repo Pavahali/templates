@@ -30,6 +30,9 @@ int stack_empty(stack_t S);
 // Accesses the top element
 void *stack_top(stack_t S);
 
+// Returns the number of elements
+size_t stack_size(stack_t q);
+
 
 // Inserts `item` (its first `N` bytes) at the top
 void stack_push(stack_t *S, void *item, size_t size);

@@ -18,6 +18,9 @@ void *stack_top(stack_t S) {
     return S.head->item;
 }
 
+size_t stack_size(stack_t S) {
+    return S.size;
+}
 
 void stack_push(stack_t *S, void *item, size_t size) {
     struct stack_item_t *newi = (struct stack_item_t*)malloc(sizeof(struct stack_item_t));

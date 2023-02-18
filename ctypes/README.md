@@ -17,6 +17,7 @@
 |:-------------:|:-----------------:|:------------:|:------------------------------------------:|:---------------------------------------------------------------|
 | stack_new()   | O(1)              | stack_t      |                                            | Returns `stack_t` filled with zeroes                           |
 | stack_empty() | O(1)              | int (bool)   | stack_t  `S`                               | Returns a boolean value indicating whether or not `S` is empty |
+| stack_size()  | O(1)              | void*        | stack_t  `S`                               | Returns the number of elements                                 |
 | stack_top()   | O(1)              | void*        | stack_t  `S`                               | Accesses the top element                                       |
 | stack_push()  | O(1)              |              | stack_t* `S`<br>void* `item`<br>size_t `N` | Inserts `item` (its first `N` bytes) at the top                |
 | stack_pop()   | O(1)              |              | stack_t* `S`                               | Removes the top element                                        |
@@ -38,6 +39,7 @@
 |:-------------:|:---------------:|:------------:|:------------------------------------------:|:-------------------------------------------------------------------|
 | queue_new()   | O(1)            | queue_t      |                                            | Returns `queue_t` filled with zeroes                               |
 | queue_empty() | O(1)            | int (bool)   | queue_t  `Q`                               | Returns a boolean value indicating whether or not `Q` is empty     |
+| queue_size()  | O(1)            | void*        | queue_t  `Q`                               | Returns the number of elements                                     |
 | queue_front() | O(1)            | void*        | queue_t  `Q`                               | Accesses the first element                                         |
 | queue_back()  | O(1)            | void*        | queue_t  `Q`                               | Accesses the last element                                          |
 | queue_push()  | O(1)            |              | queue_t* `Q`<br>void* `item`<br>size_t `N` | Inserts `item` (its first `N` bytes) at the end                    |

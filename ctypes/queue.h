@@ -29,6 +29,9 @@ queue_t queue_new();
 // Returns a boolean value indicating whether or not `Q` is empty
 int queue_empty(queue_t q);
 
+// Returns the number of elements
+size_t queue_size(queue_t q);
+
 
 // Accesses the first element
 void* queue_front(queue_t q);
