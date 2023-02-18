@@ -80,10 +80,10 @@ The definition of the value is up to the comparator
 ### Platform-dependent
 > Compare items byte by byte, with the most significant value defined by the platform's default endianness
 
-| method            | endianness       | question                       |
-|:-----------------:|:-----------------|:-------------------------------|
-| cmp_smaller(a, b) | Platform default | Is `a` less or equal to `b`?   |
-| cmp_greater(a, b) | Platform default | Is `a` greater than `b`?       |
+| method            | endianness         | question                       |
+|:-----------------:|:-------------------|:-------------------------------|
+| cmp_smaller(a, b) | Platform's default | Is `a` less or equal to `b`?   |
+| cmp_greater(a, b) | Platform's default | Is `a` greater than `b`?       |
 
 ### Platform-independent
 > Compare items byte by byte
