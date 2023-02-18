@@ -14,17 +14,33 @@ struct cmp_item_t {
 
 typedef struct cmp_item_t cmp_item_t;
 
+
+// Is the size of `a` less or equal than the size of `b`?
 int cmp_shorter(cmp_item_t a, cmp_item_t b);
+
+// Is the size of `a` longer than the size of `b`?
 int cmp_longer(cmp_item_t a, cmp_item_t b);
 
 
+// Is `a` less or equal to `b`? (In little-endian)
 int cmp_smaller_le(cmp_item_t a, cmp_item_t b);
+
+// Is `a` greater than `b`? (In little-endlian)
 int cmp_greater_le(cmp_item_t a, cmp_item_t b);
 
+// Is `a` less or equal to `b`? (In big-endian)
 int cmp_smaller_be(cmp_item_t a, cmp_item_t b);
+
+// Is `a` greater than `b`? (In big-endian)
 int cmp_greater_be(cmp_item_t a, cmp_item_t b);
 
+
+// Is `a` less or equal to `b`?
+// If it does not work, consider manually specifying endianness
 int cmp_smaller(cmp_item_t a, cmp_item_t b);
+
+// Is `a` greater than `b`?
+// If it does not work, consider manually specifying endianness
 int cmp_bigger(cmp_item_t a, cmp_item_t b);
 
 
