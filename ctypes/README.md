@@ -14,7 +14,7 @@
 |stack_new()|O(1)|stack_t||Returns `stack_t` filled with zeroes|
 |stack_empty()|O(1)|int (bool)|stack_t `S`|Returns a boolean value indicating whether or not `S` is empty|
 |stack_top()|O(1)|void*|stack_t `S`|Returns the `item` from the top|
-|stack_push()|O(1)||stack_t `S`<br>void* `item`<br>size_t `N`|Pushes the first `N` bytes of the `item` at the top|
+|stack_push()|O(1)||stack_t `S`<br>void* `item`<br>size_t `N`|Inserts an `item` (its first `N` bytes) at the top|
 |stack_pop()|O(1)||stack_t `S`|Removes the top element|
 
 ---
