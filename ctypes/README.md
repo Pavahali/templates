@@ -1,6 +1,8 @@
 # An implementation of different structures
 
 ## Stack
+> https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
+
 
 | type | description |
 |:----:|:-----------|
@@ -10,14 +12,16 @@
 | method | time complexity | return value | arguments | description |
 |:------:|:---------------:|:------------:|:---------:|:------------|
 |stack_new()|O(1)|stack_t||Returns `stack_t` filled with zeroes|
-|stack_empty()|O(1)|int (bool)|stack_t `stack`|Returns a boolean value indicating whether or not the `stack` is empty|
-|stack_top()|O(1)|void*|stack_t `stack`|Returns the `item` from the top of the `stack`|
-|stack_push()|O(1)||stack_t `stack`<br>void* `item`<br>size_t `N`|Pushes the first `N` bytes of the `item` to the `stack`.|
-|stack_pop()|O(1)||stack_t `stack`|Removes the top element from the `stack`|
+|stack_empty()|O(1)|int (bool)|stack_t `S`|Returns a boolean value indicating whether or not `S` is empty|
+|stack_top()|O(1)|void*|stack_t `S`|Returns the `item` from the top|
+|stack_push()|O(1)||stack_t `S`<br>void* `item`<br>size_t `N`|Pushes the first `N` bytes of the `item` at the top|
+|stack_pop()|O(1)||stack_t `S`|Removes the top element|
 
 ---
 
 ## Queue
+> https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)
+
 
 | type | description |
 |:----:|:------------|
