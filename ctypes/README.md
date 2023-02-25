@@ -104,6 +104,7 @@ The definition of the value is up to the comparator
 
 | method               | endianness    | question                     |
 |:--------------------:|:-------------:|:-----------------------------|
+| cmp_equal(a, b)      |               | Is `a` equal to `b`?         |
 | cmp_smaller_le(a, b) | Little-endian | Is `a` less or equal to `b`? |
 | cmp_greater_le(a, b) | Little-endian | Is `a` greater than `b`?     |
 | cmp_smaller_be(a, b) | Big-endian    | Is `a` less or equal to `b`? |
