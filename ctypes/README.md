@@ -48,6 +48,40 @@
 | queue_push()  | O(1)            |              | queue_t \*`Q`<br>void \*`item`<br>size_t `N` | Inserts an element at the end                                  |
 | queue_pop()   | O(1)            |              | queue_t \*`Q`                                | Removes the last element                                       |
 
+---
+
+## List
+
+> https://en.wikipedia.org/wiki/List_(abstract_data_type)
+
+#### Dependencies
+* [comparator.c](comparator.c)
+
+#### Types
+| type                | description                                                                      |
+|:-------------------:|:---------------------------------------------------------------------------------|
+| list_t              | The list itself, should be assigned the value of `list_new()` or zeroed manually |
+| struct queue_item_t | The item stored in the list                                                      |
+
+#### Methods
+Note: Time complexity depends on the list size
+
+| method            | time complexity | return value | arguments                                                  | description                                                                                    |
+|:-----------------:|:---------------:|:------------:|:----------------------------------------------------------:|:-----------------------------------------------------------------------------------------------|
+| list_new()        | O(1)            | queue_t      |                                                            | Returns `list_t` filled with zeroes                                                            |
+| list_empty()      | O(1)            | int (bool)   | list_t   `L`                                               | Returns a boolean value indicating wheether or not `L` is empty                                |
+| list_size()       | O(1)            | size_t       | list_t   `L`                                               | Returns the number of elements                                                                 |
+| list_front()      | O(1)            | void*        | list_t   `L`                                               | Accesses the first element                                                                     |
+| list_back()       | O(1)            | void*        | list_t   `L`                                               | Accesses the last element                                                                      |
+| list_push_front() | O(1)            |              | list_t \*`L`<br>void \*`item`<br>size_t `N`                | Inserts an element to the beginning                                                            |
+| list_push_back()  | O(1)            |              | list_t \*`L`<br>void \*`item`<br>size_t `N`                | Inserts an element at the end                                                                  |
+| list_pop_front()  | O(1)            |              | list_t \*`L`                                               | Removes the first element                                                                      |
+| list_pop_back()   | O(1)            |              | list_t \*`L`                                               | Removes the last element                                                                       |
+| list_insert()     | O(n)            |              | list_t \*`L`<br>int `at`<br>void \*`item`<br>size_t `size` | Inserts an element at the specified index<br>(Acts as `list_push_back()` if list is too small) |
+| list_remove()     | O(n)            |              | list_t \*`L`                                               | Removes an element at the specified inde.<br>(Does `nothing` if list is too small)             |
+| list_at()         | O(n)            | void*        | list_t   `L`                                               | Accesses an element at the specified index<br>(`0` if not found)                               |
+| list_count()      | O(n)            | int          | list_t   `L`<br>void \*`item`<br>size_t `size`             | Returns the number of elements mathing specific key                                            |
+
 
 ---
 <br>
