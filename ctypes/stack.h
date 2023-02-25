@@ -34,7 +34,7 @@ void *stack_top(stack_t S);
 size_t stack_size(stack_t q);
 
 
-// Inserts `item` (its first `N` bytes) at the top
+// Inserts an element at the top
 void stack_push(stack_t *S, void *item, size_t size);
 
 // Removes the top element

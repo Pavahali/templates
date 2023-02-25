@@ -2,7 +2,7 @@
 #ifndef _CTYPES_QUEUE_H
 #define _CTYPES_QUEUE_H
 
-#include <stdlib.h>
+#include <stdlib.h> // size_t
 
 // The item stored in the queue
 struct queue_item_t
@@ -11,7 +11,7 @@ struct queue_item_t
     struct queue_item_t *next;
 };
 
-// The queue type. should be assigned the value of stack_new() or zeroed manually
+// The queue type. should be assigned the value of queue_new() or zeroed manually
 struct queue_t
 {
     size_t size;
@@ -40,7 +40,7 @@ void* queue_front(queue_t q);
 void* qeque_back(queue_t q);
 
 
-// Inserts `item` (its first `N` bytes) at the end
+// Inserts an element at the end
 void queue_push(queue_t* q, void* item, size_t size);
 
 // Removes the last element
