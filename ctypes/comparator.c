@@ -1,17 +1,43 @@
 #include "comparator.h"
+#include <string.h> // memcpy()
+#include <stdio.h>
 
-// ---
-// Only sizes are compared, not the contents
-//
-
-// Is the size of `a` less or equal than the size of `b`?
-int cmp_shorter(cmp_item_t a, cmp_item_t b) {
-    return (a.size <= b.size);
+void* cmp_item(cmp_item_t x) {
+    return x.item;
 }
 
-// Is the size of `a` longer than the size of `b`?
-int cmp_longer(cmp_item_t a, cmp_item_t b) {
-    return (a.size <= b.size);
+cmp_item_t cmp_item_new(void* item, size_t size) {
+    void* out;
+
+    out = malloc(size);
+    memcpy(out, item, size);
+    return (cmp_item_t){out, size};
+}
+
+
+// ---
+// Platform independent
+//
+
+// Is `a` equal to `b`?
+int cmp_equal(cmp_item_t a, cmp_item_t b) {
+    if (a.size != b.size) {
+        printf("%d != %d (size)\n", a.item, b.item);
+        return 0;
+    }
+
+    uint8_t* aptr = (uint8_t*)a.item + a.size - 1;
+    uint8_t* bptr = (uint8_t*)b.item + b.size - 1;
+
+    while (aptr >= (uint8_t*)a.item && bptr >= (uint8_t*)b.item) {
+        if (*aptr != *bptr) {
+            return 0;
+            printf("%d != %d (%d-th byte)\n", a.item, b.item, aptr-(uint8_t*)a.item);
+        }
+        aptr--;
+        bptr--;
+    }
+    return 1;
 }
 
 //
@@ -23,30 +49,30 @@ int cmp_longer(cmp_item_t a, cmp_item_t b) {
 
 // Is `a` less or equal to `b`? (In little-endian)
 int cmp_smaller_le(cmp_item_t a, cmp_item_t b) {
-    if (a.size != b.size) return cmp_shorter(a, b);
+    if (a.size != b.size) return (a.size <= b.size);
 
     uint8_t* aptr = (uint8_t*)a.item + a.size - 1;
     uint8_t* bptr = (uint8_t*)b.item + b.size - 1;
 
     while (aptr >= (uint8_t*)a.item && bptr >= (uint8_t*)b.item) {
         if (*aptr != *bptr) return *aptr <= *bptr;
-        aptr++;
-        bptr++;
+        aptr--;
+        bptr--;
     }
     return 1; // if a == b;
 }
 
 // Is `a` greater than `b`? (In little-endlian)
 int cmp_greater_le(cmp_item_t a, cmp_item_t b) {
-    if (a.size != b.size) return cmp_longer(a, b);
+    if (a.size != b.size) return (a.size > b.size);
 
     uint8_t* aptr = (uint8_t*)a.item + a.size - 1;
     uint8_t* bptr = (uint8_t*)b.item + b.size - 1;
 
     while (aptr >= (uint8_t*)a.item && bptr >= (uint8_t*)b.item) {
         if (*aptr != *bptr) return *aptr > *bptr;
-        aptr++;
-        bptr++;
+        aptr--;
+        bptr--;
     }
     return 1; // if a == b;
 }
@@ -60,13 +86,13 @@ int cmp_greater_le(cmp_item_t a, cmp_item_t b) {
 
 // Is `a` less or equal to `b`? (In big-endian)
 int cmp_smaller_be(cmp_item_t a, cmp_item_t b) {
-    if (a.size != b.size) return cmp_shorter(a, b);
+    if (a.size != b.size) return (a.size <= b.size);
 
     
     uint8_t* aptr = (uint8_t*)a.item;
     uint8_t* bptr = (uint8_t*)b.item;
 
-    while (aptr != (uint8_t*)(a.item + a.size) && bptr != (uint8_t*)(b.item + b.size)) {
+    while (aptr != (uint8_t*)a.item + a.size && bptr != (uint8_t*)b.item + b.size) {
         if (*aptr != *bptr) return *aptr <= *bptr;
         aptr++;
         bptr++;
@@ -76,13 +102,13 @@ int cmp_smaller_be(cmp_item_t a, cmp_item_t b) {
 
 // Is `a` greater than `b`? (In big-endian)
 int cmp_greater_be(cmp_item_t a, cmp_item_t b) {
-    if (a.size != b.size) return cmp_longer(a, b);
+    if (a.size != b.size) return (a.size > b.size);
 
     
     uint8_t* aptr = (uint8_t*)a.item;
     uint8_t* bptr = (uint8_t*)b.item;
 
-    while (aptr != (uint8_t*)(a.item + a.size) && bptr != (uint8_t*)(b.item + b.size)) {
+    while (aptr != (uint8_t*)a.item + a.size && bptr != (uint8_t*)b.item + b.size) {
         if (*aptr != *bptr) return *aptr > *bptr;
         aptr++;
         bptr++;

@@ -11,7 +11,7 @@
 | type                 | description                                                                         |
 |:--------------------:|:------------------------------------------------------------------------------------|
 | stack_t              | The stack itself. Should be assingned the value of `stack_new()` or zeroed manually |
-| struct stack_item_t  | The item stored in the stack |
+| struct stack_item_t  | The item stored in the stack                                                        |
 
 #### Methods
 | method        | time complexity   | return value | arguments                                    | description                                                    |
@@ -20,8 +20,9 @@
 | stack_empty() | O(1)              | int (bool)   | stack_t   `S`                                | Returns a boolean value indicating whether or not `S` is empty |
 | stack_size()  | O(1)              | size_t       | stack_t   `S`                                | Returns the number of elements                                 |
 | stack_top()   | O(1)              | void*        | stack_t   `S`                                | Accesses the top element                                       |
-| stack_push()  | O(1)              |              | stack_t \*`S`<br>void \*`item`<br>size_t `N` | Inserts `item` (its first `N` bytes) at the top                |
+| stack_push()  | O(1)              |              | stack_t \*`S`<br>void \*`item`<br>size_t `N` | Inserts an element at the top                                  |
 | stack_pop()   | O(1)              |              | stack_t \*`S`                                | Removes the top element                                        |
+
 
 ---
 
@@ -33,7 +34,7 @@
 #### Types
 | type                | description                                                                        |
 |:-------------------:|:-----------------------------------------------------------------------------------|
-| queue_t             | The queue itself. should be assigned the value of `stack_new()` or zeroed manually |
+| queue_t             | The queue itself. Should be assigned the value of `queue_new()` or zeroed manually |
 | struct queue_item_t | The item stored in the queue                                                       |
 
 #### Methods
@@ -44,35 +45,43 @@
 | queue_size()  | O(1)            | size_t       | queue_t   `Q`                                | Returns the number of elements                                 |
 | queue_front() | O(1)            | void*        | queue_t   `Q`                                | Accesses the first element                                     |
 | queue_back()  | O(1)            | void*        | queue_t   `Q`                                | Accesses the last element                                      |
-| queue_push()  | O(1)            |              | queue_t \*`Q`<br>void\* `item`<br>size_t `N` | Inserts `item` (its first `N` bytes) at the end                |
+| queue_push()  | O(1)            |              | queue_t \*`Q`<br>void \*`item`<br>size_t `N` | Inserts an element at the end                                  |
 | queue_pop()   | O(1)            |              | queue_t \*`Q`                                | Removes the last element                                       |
 
 
 ---
+<br>
 ---
 
 ## Helpers
-## comparator.c
+### Comparators
 
 > Provides comparable items and some comparators.
-> In the future, it will be used to implement ordered structures like [heap](https://en.wikipedia.org/wiki/Heap_(data_structure)) and [set](https://en.wikipedia.org/wiki/Set_(abstract_data_type))
+> In the future, it will be used to implement things that require comparison of the items
 
-All comparators answer the same question: "Does `a` have greater value than `b`?"
-The definition of the value is up to the comparator
+#### Methods
+| method         | return value | arguments                   | description                     |
+|:--------------:|:------------:|:---------------------------:|:-------------------------------:|
+| cmp_item()     | void*        | cmp_item_t `item`           | Accesses the data               |
+| cmp_item_new() | cmp_item_t   | void \*`item`<br>size_t `N` | Initialises new comparable item |
 
-| return value | arguments                        |
-|:------------:|:--------------------------------:|
-| int (bool)   | cmp_item_t `a`<br>cmp_item_t `b` |
-
-
-
-### Types
+#### Types
 | type       | description                                                |
 |:----------:|:-----------------------------------------------------------|
 | cmp_item_t | An element which can be compared independently of its type |
 
 
-### Size-only compare
+All comparators answer the same question: "Does `a` have greater value than `b`?"
+The definition of the value is up to the comparator
+
+#### Comparator layout
+| return value | arguments                        |
+|:------------:|:--------------------------------:|
+| int (bool)   | cmp_item_t `a`<br>cmp_item_t `b` |
+
+
+#### Size-only compare
+
 > Compare by size (in bytes)
 
 | method            | question                                               |
@@ -80,20 +89,22 @@ The definition of the value is up to the comparator
 | cmp_shorter(a, b) | Is the size of `a` less or equal than the size of `b`? |
 | cmp_longer(a, b)  | Is the size of `a` longer than the size of `b`?        |
 
-### Platform-dependent
+#### Platform-dependent
+
 > Compare items byte by byte, with the most significant value defined by the platform's default endianness
 
-| method            | endianness         | question                       |
-|:-----------------:|:-------------------|:-------------------------------|
-| cmp_smaller(a, b) | Platform's default | Is `a` less or equal to `b`?   |
-| cmp_greater(a, b) | Platform's default | Is `a` greater than `b`?       |
+| method            | endianness         | question                     |
+|:-----------------:|:-------------------|:-----------------------------|
+| cmp_smaller(a, b) | Platform's default | Is `a` less or equal to `b`? |
+| cmp_greater(a, b) | Platform's default | Is `a` greater than `b`?     |
 
-### Platform-independent
+#### Platform-independent
+
 > Compare items byte by byte
 
-| method               | endianness    | question                       |
-|:--------------------:|:-------------:|:-------------------------------|
-| cmp_smaller_le(a, b) | Little-endian | Is `a` less or equal to `b`?   |
-| cmp_greater_le(a, b) | Little-endian | Is `a` greater than `b`?       |
-| cmp_smaller_be(a, b) | Big-endian    | Is `a` less or equal to `b`?   |
-| cmp_greater_be(a, b) | Big-endlian   | Is `a` greater than `b`?       |
+| method               | endianness    | question                     |
+|:--------------------:|:-------------:|:-----------------------------|
+| cmp_smaller_le(a, b) | Little-endian | Is `a` less or equal to `b`? |
+| cmp_greater_le(a, b) | Little-endian | Is `a` greater than `b`?     |
+| cmp_smaller_be(a, b) | Big-endian    | Is `a` less or equal to `b`? |
+| cmp_greater_be(a, b) | Big-endlian   | Is `a` greater than `b`?     |
