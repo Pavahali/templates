@@ -50,37 +50,37 @@
 
 ---
 
-## List
+## Deque
 
-> https://en.wikipedia.org/wiki/List_(abstract_data_type)
+> https://en.wikipedia.org/wiki/Double-ended_queue
 
 #### Dependencies
 * [comparator.c](comparator.c)
 
 #### Types
-| type                | description                                                                      |
-|:-------------------:|:---------------------------------------------------------------------------------|
-| list_t              | The list itself, should be assigned the value of `list_new()` or zeroed manually |
-| struct queue_item_t | The item stored in the list                                                      |
+| type                | description                                                                        |
+|:-------------------:|:-----------------------------------------------------------------------------------|
+| deque_t             | The deque itself, should be assigned the value of `deque_new()` or zeroed manually |
+| struct deque_item_t | The item stored in the deque                                                       |
 
 #### Methods
-Note: Time complexity depends on the list size
+Note: Time complexity depends on the deque size
 
-| method            | time complexity | return value | arguments                                                  | description                                                                                    |
-|:-----------------:|:---------------:|:------------:|:----------------------------------------------------------:|:-----------------------------------------------------------------------------------------------|
-| list_new()        | O(1)            | queue_t      |                                                            | Returns `list_t` filled with zeroes                                                            |
-| list_empty()      | O(1)            | int (bool)   | list_t   `L`                                               | Returns a boolean value indicating wheether or not `L` is empty                                |
-| list_size()       | O(1)            | size_t       | list_t   `L`                                               | Returns the number of elements                                                                 |
-| list_front()      | O(1)            | void*        | list_t   `L`                                               | Accesses the first element                                                                     |
-| list_back()       | O(1)            | void*        | list_t   `L`                                               | Accesses the last element                                                                      |
-| list_push_front() | O(1)            |              | list_t \*`L`<br>void \*`item`<br>size_t `N`                | Inserts an element to the beginning                                                            |
-| list_push_back()  | O(1)            |              | list_t \*`L`<br>void \*`item`<br>size_t `N`                | Inserts an element at the end                                                                  |
-| list_pop_front()  | O(1)            |              | list_t \*`L`                                               | Removes the first element                                                                      |
-| list_pop_back()   | O(1)            |              | list_t \*`L`                                               | Removes the last element                                                                       |
-| list_insert()     | O(n)            |              | list_t \*`L`<br>int `at`<br>void \*`item`<br>size_t `size` | Inserts an element at the specified index<br>(Acts as `list_push_back()` if list is too small) |
-| list_remove()     | O(n)            |              | list_t \*`L`                                               | Removes an element at the specified inde.<br>(Does `nothing` if list is too small)             |
-| list_at()         | O(n)            | void*        | list_t   `L`                                               | Accesses an element at the specified index<br>(`0` if not found)                               |
-| list_count()      | O(n)            | int          | list_t   `L`<br>void \*`item`<br>size_t `size`             | Returns the number of elements mathing specific key                                            |
+| method             | time complexity | return value | arguments                                                   | description                                                                                       |
+|:------------------:|:---------------:|:------------:|:-----------------------------------------------------------:|:--------------------------------------------------------------------------------------------------|
+| deque_new()        | O(1)            | queue_t      |                                                             | Returns `deque_t` filled with zeroes                                                             |
+| deque_empty()      | O(1)            | int (bool)   | deque_t   `L`                                               | Returns a boolean value indicating wheether or not `L` is empty                                  |
+| deque_size()       | O(1)            | size_t       | deque_t   `L`                                               | Returns the number of elements                                                                   |
+| deque_front()      | O(1)            | void*        | deque_t   `L`                                               | Accesses the first element                                                                       |
+| deque_back()       | O(1)            | void*        | deque_t   `L`                                               | Accesses the last element                                                                        |
+| deque_push_front() | O(1)            |              | deque_t \*`L`<br>void \*`item`<br>size_t `N`                | Inserts an element to the beginning                                                              |
+| deque_push_back()  | O(1)            |              | deque_t \*`L`<br>void \*`item`<br>size_t `N`                | Inserts an element at the end                                                                    |
+| deque_pop_front()  | O(1)            |              | deque_t \*`L`                                               | Removes the first element                                                                        |
+| deque_pop_back()   | O(1)            |              | deque_t \*`L`                                               | Removes the last element                                                                         |
+| deque_insert()     | O(n)            |              | deque_t \*`L`<br>int `at`<br>void \*`item`<br>size_t `size` | Inserts an element at the specified index<br>(Acts as `deque_push_back()` if deque is too small) |
+| deque_remove()     | O(n)            |              | deque_t \*`L`                                               | Removes an element at the specified inde.<br>(Does `nothing` if deque is too small)              |
+| deque_at()         | O(n)            | void*        | deque_t   `L`                                               | Accesses an element at the specified index<br>(`0` if not found)                                 |
+| deque_count()      | O(n)            | int          | deque_t   `L`<br>void \*`item`<br>size_t `size`             | Returns the number of elements mathing specific key                                              |
 
 
 ---

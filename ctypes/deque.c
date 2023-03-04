@@ -1,39 +1,39 @@
 // It's licensed under MIT, btw
 #include "comparator.h"
-#include "list.h"
+#include "deque.h"
 
 #include <stdlib.h> // malloc() and free()
 #include <string.h> // memcpy()
 
-list_t list_new() {
-    return (list_t){0, 0, 0};
+deque_t deque_new() {
+    return (deque_t){0, 0, 0};
 }
 
-int list_empty(list_t L) {
+int deque_empty(deque_t L) {
     return !(L.tail);
 }
 
-size_t list_size(list_t L) {
+size_t deque_size(deque_t L) {
     return L.size;
 }
 
-void* list_front(list_t L) {
-    if (list_empty(L)) return 0;
+void* deque_front(deque_t L) {
+    if (deque_empty(L)) return 0;
     else return cmp_item(L.tail->item);
 }
 
-void* list_back(list_t L) {
-    if (list_empty(L)) return 0;
+void* deque_back(deque_t L) {
+    if (deque_empty(L)) return 0;
     else return cmp_item(L.head->item);
 }
 
-void list_push_front(list_t* L, void* item, size_t size) {
-    struct list_item_t* newi = (struct list_item_t*)malloc(sizeof(struct list_item_t));
+void deque_push_front(deque_t* L, void* item, size_t size) {
+    struct deque_item_t* newi = (struct deque_item_t*)malloc(sizeof(struct deque_item_t));
     
     newi->prev = 0;
     newi->item = cmp_item_new(item, size);
     
-    if (list_empty(*L)) {
+    if (deque_empty(*L)) {
         L->tail = newi;
         L->head = L->tail;
     } else {
@@ -44,13 +44,13 @@ void list_push_front(list_t* L, void* item, size_t size) {
     L->size++;
 }
 
-void list_push_back(list_t* L, void* item, size_t size) {
-    struct list_item_t* newi = (struct list_item_t*)malloc(sizeof(struct list_item_t));
+void deque_push_back(deque_t* L, void* item, size_t size) {
+    struct deque_item_t* newi = (struct deque_item_t*)malloc(sizeof(struct deque_item_t));
     
     newi->next = 0;
     newi->item = cmp_item_new(item, size);
 
-    if (list_empty(*L)) {
+    if (deque_empty(*L)) {
         L->head = newi;
         L->tail = L->head;
     } else {
@@ -61,9 +61,9 @@ void list_push_back(list_t* L, void* item, size_t size) {
     L->size++;
 }
 
-void list_pop_front(list_t *L) {
-    if (list_empty(*L)) return;
-    struct list_item_t* oldi = L->tail;
+void deque_pop_front(deque_t *L) {
+    if (deque_empty(*L)) return;
+    struct deque_item_t* oldi = L->tail;
 
     if (L->head == L->tail) {
         L->head = 0;
@@ -77,9 +77,9 @@ void list_pop_front(list_t *L) {
     L->size--;
 }
 
-void list_pop_back(list_t *L) {
-    if (list_empty(*L)) return;
-    struct list_item_t* oldi = L->head;
+void deque_pop_back(deque_t *L) {
+    if (deque_empty(*L)) return;
+    struct deque_item_t* oldi = L->head;
 
     if (L->head == L->tail) {
         L->head = 0;
@@ -93,9 +93,9 @@ void list_pop_back(list_t *L) {
     L->size--;
 }
 
-static struct list_item_t* __list_at(list_t L, int at) {
-    if (list_empty(L)) return 0;
-    struct list_item_t* p = L.tail;
+static struct deque_item_t* __deque_at(deque_t L, int at) {
+    if (deque_empty(L)) return 0;
+    struct deque_item_t* p = L.tail;
     while (at--) {
         p = p->next;
         if (!p) return 0;
@@ -103,9 +103,9 @@ static struct list_item_t* __list_at(list_t L, int at) {
     return p;
 }
 
-void* list_at(list_t L, int at) {
-    if (list_empty(L)) return 0;
-    struct list_item_t* p = L.tail;
+void* deque_at(deque_t L, int at) {
+    if (deque_empty(L)) return 0;
+    struct deque_item_t* p = L.tail;
     while (at--) {
         p = p->next;
         if (!p) return 0;
@@ -114,18 +114,18 @@ void* list_at(list_t L, int at) {
 }
 
 
-void list_insert(list_t* L, int at, void* item, size_t size) {
-    struct list_item_t* p;
-    struct list_item_t* newi;
+void deque_insert(deque_t* L, int at, void* item, size_t size) {
+    struct deque_item_t* p;
+    struct deque_item_t* newi;
 
-    if (list_empty(*L)) list_push_back(L, item, size);
-    else if (at == 0) list_push_front(L, item, size);
-    else if (at >= L->size) list_push_back(L, item, size);
+    if (deque_empty(*L)) deque_push_back(L, item, size);
+    else if (at == 0) deque_push_front(L, item, size);
+    else if (at >= L->size) deque_push_back(L, item, size);
     else {
-        newi = (struct list_item_t*)malloc(sizeof(struct list_item_t));
+        newi = (struct deque_item_t*)malloc(sizeof(struct deque_item_t));
         newi->item = cmp_item_new(item, size);
 
-        p = __list_at(*L, at-1);
+        p = __deque_at(*L, at-1);
         
         newi->prev = p;
         newi->next = p->next;
@@ -136,16 +136,16 @@ void list_insert(list_t* L, int at, void* item, size_t size) {
     }
 }
 
-void list_remove(list_t* L, int at) {
-    struct list_item_t* oldi;
-    struct list_item_t* p;
+void deque_remove(deque_t* L, int at) {
+    struct deque_item_t* oldi;
+    struct deque_item_t* p;
 
-    if (list_empty(*L)) return;
-    else if (at == 0) list_pop_front(L);
-    else if (at == L->size-1) list_pop_back(L);
+    if (deque_empty(*L)) return;
+    else if (at == 0) deque_pop_front(L);
+    else if (at == L->size-1) deque_pop_back(L);
     else if (at >= L->size) return;
     else {
-        struct list_item_t* p = __list_at(*L, at-1);
+        struct deque_item_t* p = __deque_at(*L, at-1);
         oldi = p->next;
 
         p->next = p->next->next;
@@ -157,8 +157,8 @@ void list_remove(list_t* L, int at) {
     }
 }
 
-int list_count(list_t L, void* item, size_t size) {
-    struct list_item_t *p = L.tail;
+int deque_count(deque_t L, void* item, size_t size) {
+    struct deque_item_t *p = L.tail;
     cmp_item_t x = {item, size};
 
     int out = 0;
